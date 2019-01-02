@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Website</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		<div id="info">
+			<div id="top"><center><button onclick="morph()" id="launch" class="button">Morph Target</button></center>
+				<div id="top"><center><button onclick="removeObjsFromScene(scene)" id="launch" class="button">Morph Target</button></center>
+		</div>
+
+		<script src="js/build/three.js"></script>
+		<script src="js/libs/inflate.min.js"></script>
+		<script src="js/libs/FBXLoader.js"></script>
+		<script src="js/libs/OrbitControls.js"></script>
+		<script src="js/libs/Detector.js"></script>
+		<script src="js/src/init.js"></script>
+		<script src="js/src/loader.js"></script>
+		<script src="js/src/morph.js"></script>
+		<script src="js/src/scenes/circuits.js"></script>
+		<script src="js/src/scenes/scene2.js"></script>
+		<script src="js/src/changeScene.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+
+		<script src="js/src/properties.js"></script>
+
+		<script>
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			allProps = [properties1,properties2];
+			let p = properties1;
+
+			init();
+			animate();
+
+			function init() {
+				initContainer();
+				initCamera();
+				initControls(camera);
+				initScene();
+				initLights(scene);
+				//const scene1 = p.scenes.filter(obj => obj.name === 'scene1')[0];
+				//loadFiles(scene,scene1);
+				//const scene1 = p.filter(obj => obj.name === 'scene1')[0];
+				//const scene2 = p.filter(obj => obj.name === 'scene2')[0];
+
+				//loadFiles(scene,p);
+				async function loadSync(){
+					allProps.forEach(async function(prop){
+						console.log(prop,'PROP');
+						if(typeof prop !== "undefined"){
+							loadFiles(scene,prop);
+							console.log('a1');
+						} else {
+							console.log('PROP UNDEFINED');
+						}
+						await loadFiles();
+						console.log('a2');
+					});
+				}
+				loadSync()
+
+
+
+
+				initRenderer();
+
+			}
+			//
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			//
+			function animate() {
+				requestAnimationFrame( animate );
+				renderer.render( scene, camera );
+				TWEEN.update();
+			}
+		</script>
+	</body>
+</html>
