@@ -23,4 +23,4 @@ function getAllPaths(scenes){
   console.log("All Paths: ", allPaths);
 }
 
-getAllPaths(properties.scenes);
+//getAllPaths(properties.scenes);

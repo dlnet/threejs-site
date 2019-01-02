@@ -5,7 +5,6 @@ function removeObjsFromScene(scene){
         //scene.children[i].visible = false;
         //hidden.add(scene.children[i]);
     }
-
   }
   if(scene.children.length < 4){
     loadNext(scene);

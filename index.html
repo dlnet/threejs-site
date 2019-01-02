@@ -10,7 +10,8 @@
 	<body>
 		<div id="info">
 			<div id="top"><center><button onclick="morph()" id="launch" class="button">Morph Target</button></center>
-				<div id="top"><center><button onclick="removeObjsFromScene(scene)" id="launch" class="button">Morph Target</button></center>
+			<div id="top"><center><button onclick="removeObjsFromScene(scene)" id="launch" class="button">Remove Objects</button></center>
+			<div id="top"><center><button onclick="loadNext(scene)" id="launch" class="button">Add Object</button></center>
 		</div>
 
 		<script src="js/build/three.js"></script>
@@ -51,21 +52,22 @@
 				//loadFiles(scene,p);
 				async function loadSync(){
 					allProps.forEach(async function(prop){
-						console.log(prop,'PROP');
+						console.log("------");
+						console.log('loading',prop.name);
 						if(typeof prop !== "undefined"){
+							console.log(prop);
+							console.log(prop.name,'should work');
 							loadFiles(scene,prop);
-							console.log('a1');
+							await loadFiles();
 						} else {
-							console.log('PROP UNDEFINED');
+							console.log(prop.name,'UNDEFINED');
 						}
+						console.log('starting await');
 						await loadFiles();
-						console.log('a2');
+						console.log('finished await');
 					});
 				}
 				loadSync()
-
-
-
 
 				initRenderer();
 
