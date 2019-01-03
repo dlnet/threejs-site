@@ -14,7 +14,7 @@ function transformations(object,name,p){
 }
 
 async function loadFiles(scene,props) {
-  console.log(index);
+  console.log(index,'index');
   const {files, path, childName, fn} = props;
   //return files.map(filename => loader.load(path+filename), object => object);
   if (index > files.length - 1) return;
@@ -30,5 +30,5 @@ async function loadFiles(scene,props) {
     loadFiles(scene,props);
   });
 
-  return;
+  
 }

@@ -12,6 +12,8 @@
 			<div id="top"><center><button onclick="morph()" id="launch" class="button">Morph Target</button></center>
 			<div id="top"><center><button onclick="removeObjsFromScene(scene)" id="launch" class="button">Remove Objects</button></center>
 			<div id="top"><center><button onclick="loadNext(scene)" id="launch" class="button">Add Object</button></center>
+			<div id="top"><center><button onclick="displayLoadedHiddenObj(scene,properties2)" id="launch" class="button">Do Something</button></center>
+
 		</div>
 
 		<script src="js/build/three.js"></script>
@@ -32,7 +34,7 @@
 		<script>
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			allProps = [properties1,properties2];
+			//allProps = [properties1,properties2];
 			let p = properties1;
 
 			init();
@@ -49,25 +51,8 @@
 				//const scene1 = p.filter(obj => obj.name === 'scene1')[0];
 				//const scene2 = p.filter(obj => obj.name === 'scene2')[0];
 
-				//loadFiles(scene,p);
-				async function loadSync(){
-					allProps.forEach(async function(prop){
-						console.log("------");
-						console.log('loading',prop.name);
-						if(typeof prop !== "undefined"){
-							console.log(prop);
-							console.log(prop.name,'should work');
-							loadFiles(scene,prop);
-							await loadFiles();
-						} else {
-							console.log(prop.name,'UNDEFINED');
-						}
-						console.log('starting await');
-						await loadFiles();
-						console.log('finished await');
-					});
-				}
-				loadSync()
+				loadFiles(scene,p);
+
 
 				initRenderer();
 
