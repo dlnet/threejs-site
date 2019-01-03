@@ -3,20 +3,18 @@ function removeObjsFromScene(scene){
     if(scene.children[i].type === "Group"){
         //scene.remove(scene.children[i]);
         scene.children[i].visible = false;
-        //hidden.add(scene.children[i]);
     }
   }
   if(scene.children.length < 4){
-  //  loadNext(scene);
+      //loadNext(scene);
       console.log('scene.children length < 4');
   }
 }
 
-function loadNext(scene){
-  index = 0;
-  let p = properties2;
-  loadFiles(scene,properties2);
-  console.log(scene.children);
+function loadNext(scene,prop){
+  // Loads a specific object, given by the prop parameter
+  index = 0; // Need to bring index down to 0 again...
+  loadFiles(scene,prop);
 }
 
 var currentObject;
@@ -24,26 +22,29 @@ function displayLoadedHiddenObj(scene,prop){
   // Displays a specific object that has already been loaded through FBX Loader
   // The object is determined by it's name, which is given by the prop parameter
   // All other objects visible in the scene are hidden
-  let currentObjects = []
+
+  // Get filename(s) of object(s) to reveal in scene
+  let currentObjects = [] // will be added to this array
+  if (prop.objectName !== null){
+    currentObjects.push(prop.objectName);
+  }
   prop.files.forEach(function(file){
     let filename = file.slice(0,-4);
     currentObjects.push(filename);
   });
+
+  // Make all other objects in scene hidden
   for (let i = scene.children.length - 1; i >= 0; i--) {
     if(scene.children[i].type === "Group" && scene.children[i].visible == true){
       scene.children[i].visible = false;
+      console.log(scene.children[i].name,'hidden');
     }
   }
 
-  for (let i = currentObjects.length - 1; i >= 0; i--) {
-    if(scene.children[i].type === "Group" && scene.children[i].name == true){
-      scene.children[i].visible = false;
-    }
-  }
-
+  // Get object by name, and reveal it
   currentObjects.forEach(function(objName){
-    console.log(objName,'OBJNAME');
     currentObject = scene.getObjectByName( objName, true );
     currentObject.visible = true;
+    console.log(objName,'revealed');
   });
 }
